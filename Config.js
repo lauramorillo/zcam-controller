@@ -5,8 +5,8 @@ class Config {
     if (!process.env.CAM_ID) {
       throw new Error('CAM_ID not configured')
     }
-    const CAM_ID = 'cam' + process.env.CAM_ID
-    const configFile = `${CAM_ID}-config.yaml`
+    this.camName = 'cam' + process.env.CAM_ID
+    const configFile = `${this.camName}-config.yaml`
     const file = await driveConnector.getConfigFile(configFile)
     return new Config(yaml.parse(file).config)
   }
@@ -16,7 +16,7 @@ class Config {
   }
 
   get folderName() {
-    return CAM_ID
+    return this.camName
   }
 
   get startHour() {

@@ -50,6 +50,7 @@ async function processPhoto(config) {
   await camConnector.downloadFile(pictureCameraPath, rawEnabled, localDir)
   await camConnector.deleteFile(pictureCameraPath)
   await driveConnector.uploadFiles(localConnector.photos_dir)
+  return
 }
 
 async function processDailyPhoto(config) {
