@@ -7,7 +7,7 @@ class CodeUpdater {
 
   async updateCode() {
     this.tracer.log('Updating code')
-    await simpeGit.pull('origin', 'master', {'--no-rebase': null})
+    return simpleGit.pull('origin', 'master', {'--no-rebase': null})
   }
 }
 

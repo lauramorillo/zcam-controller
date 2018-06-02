@@ -94,7 +94,7 @@ async function loadConfig() {
       }
 
       if (config.updateCode) {
-        codeUpdater.updateCode()
+        await codeUpdater.updateCode()
       }
 
       previousConfig = new Config(config._config)
