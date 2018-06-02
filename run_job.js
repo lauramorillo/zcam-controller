@@ -43,6 +43,7 @@ function cronFromConfig(config) {
 }
 
 async function processPhoto(config) {
+  tracer.log('Processing photo')
   const localDir = await localConnector.createDailyDir(config)
   const pictureCameraPath = await camConnector.takePhoto()
   const rawEnabled = config.rawEnabled
@@ -74,7 +75,7 @@ async function loadConfig() {
         try {
           processPhoto(config)
         } catch(err) {
-          tracer.log('Error processing photo')
+          tracer.error('Error processing photo')
           tracer.error(err)
         }
       });
@@ -85,7 +86,7 @@ async function loadConfig() {
           try {
             processDailyPhoto(config)
           } catch(err) {
-            tracer.log('Error processing daily photo')
+            tracer.error('Error processing daily photo')
             tracer.error(err)
           }
         })

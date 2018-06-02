@@ -9,6 +9,7 @@ class LocalConnector {
   }
 
   async createDailyDir(config) {
+    this.tracer.log('Creating daily dir')
     return new Promise((resolve, reject) => {
       this._createDir(PHOTOS_DIR)
       const directory = `${PHOTOS_DIR}/${config.folderName}_${moment().format('YYYYMMDD')}`
