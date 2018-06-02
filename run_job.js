@@ -93,11 +93,10 @@ async function loadConfig() {
         })
       }
 
-      if (config.updateCode) {
-        await codeUpdater.updateCode()
-      }
-
       previousConfig = new Config(config._config)
+    }
+    if (config.updateCode) {
+      await codeUpdater.updateCode()
     }
   } catch(err) {
     tracer.error(err)
