@@ -93,7 +93,7 @@ async function loadConfig() {
         })
       }
 
-      if (config.codeUpdateJob) {
+      if (config.updateCode) {
         codeUpdater.updateCode()
       }
 
