@@ -3,7 +3,7 @@ const CamConnector = require('./CamConnector')
 const LocalConnector = require('./LocalConnector')
 const Config = require('./Config')
 const Tracer = require('./Tracer')
-const CodeUpdater = require('./CodeUpdated')
+const CodeUpdater = require('./CodeUpdater')
 
 const tracer = new Tracer()
 const localConnector = new LocalConnector(tracer)
