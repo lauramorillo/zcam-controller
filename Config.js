@@ -1,11 +1,13 @@
-const CAM_ID = 'cam1'
-const CONFIG_FILE = `${CAM_ID}-config.yaml`
-
 const yaml = require("node-yaml")
 
 class Config {
   static async getConfig(driveConnector) {
-    const file = await driveConnector.getConfigFile(CONFIG_FILE)
+    if (!process.env.CAM_ID) {
+      throw new Error('CAM_ID not configured')
+    }
+    const CAM_ID = 'cam' + process.env.CAM_ID
+    const configFile = `${CAM_ID}-config.yaml`
+    const file = await driveConnector.getConfigFile(configFile)
     return new Config(yaml.parse(file).config)
   }
 
