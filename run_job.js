@@ -61,28 +61,32 @@ async function processDailyPhoto(config) {
 
 async function loadConfig() {
   try {
+    tracer.log('Loading config')
     const config = await Config.getConfig(driveConnector)
+    tracer.log('Config loaded')
     if (!job || !previousConfig || config.stringify() !== previousConfig.stringify()) {
       console.log('Updating job with cron ', cronFromConfig(config), ' at ', new Date())
       if (job) job.cancel()
       if (dailyJob) dailyJob.cancel()
       
       job = schedule.scheduleJob(cronFromConfig(config), () => {
-        console.log('Executing job at ', new Date())
+        tracer.log(`Executing job at ${new Date()}`)
         try {
           processPhoto(config)
         } catch(err) {
-          console.error("Error processing photo: ", err)
+          tracer.log('Error processing photo')
+          tracer.error(err)
         }
       });
 
       if (config.dailyEnabled) {
         dailyJob = schedule.scheduleJob('26 0 * * 0-6', () => {
-          console.log('Executing daily job at ', new Date())
+          tracer.log(`Executing daily job at ${new Date()}`)
           try {
             processDailyPhoto(config)
           } catch(err) {
-            console.error("Error processing daily photo: ", err)
+            tracer.log('Error processing daily photo')
+            tracer.error(err)
           }
         })
       }
@@ -99,7 +103,6 @@ async function loadConfig() {
 }
 
 configJob = schedule.scheduleJob('*/5 * * * *', () => {
-  console.log('Loading config')
   loadConfig()
 });
 loadConfig()
