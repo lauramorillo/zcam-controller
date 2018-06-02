@@ -103,7 +103,7 @@ async function loadConfig() {
   }
 }
 
-configJob = schedule.scheduleJob('*/1 * * * *', () => {
+configJob = schedule.scheduleJob('*/5 * * * *', () => {
   loadConfig().catch(err => trace.error(err))
 });
 loadConfig().catch(err => trace.error(err))
