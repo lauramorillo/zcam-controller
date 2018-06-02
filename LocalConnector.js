@@ -33,12 +33,15 @@ class LocalConnector {
   }
 
   _createDir(dir) {
+    this.tracer.log(`Creating dir ${dir}`)
     try {
       fs.mkdirSync(dir);
     } catch (err) {
       if (err.code != 'EEXIST') {
+        this.tracer.error(`Create dir failed for ${dir}: ${err}`)
         throw err;
       }
+      this.tracer.log(`Dir ${dir} already exists`)
     }
   }
 }
