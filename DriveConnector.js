@@ -18,7 +18,7 @@ class DriveConnector {
   }
 
   async getConfigFile(fileName) {
-    this.tracer.trace(`Getting config file ${fileName}`)
+    this.tracer.log(`Getting config file ${fileName}`)
     const auth = await this._getAuth()
     return new Promise((resolve, reject) => {  
       this.findFiles( `name='${fileName}'`)
@@ -142,7 +142,7 @@ class DriveConnector {
    * @param {function} callback The callback to call with the authorized client.
    */
   authorize() {
-    this.tracer.trace('Authorizing...')
+    this.tracer.log('Authorizing...')
     return new Promise((resolve, reject) => {
       return this.loadCredentialsFile().then(credentials => {
         var clientSecret = credentials.installed.client_secret;
@@ -153,12 +153,12 @@ class DriveConnector {
         // Check if we have previously stored a token.
         fs.readFile(TOKEN_PATH, (err, token) => {
           if (err) {
-            this.tracer.trace('Generating new token')
+            this.tracer.log('Generating new token')
             this.getNewToken(oauth2Client).then(auth => {
               resolve(auth)
             });
           } else {
-            this.tracer.trace('Using previous token')
+            this.tracer.log('Using previous token')
             oauth2Client.credentials = JSON.parse(token);
             resolve(oauth2Client)
           }
