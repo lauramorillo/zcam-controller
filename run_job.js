@@ -98,7 +98,7 @@ async function loadConfig() {
       previousConfig = new Config(config._config)
     }
   } catch(err) {
-    console.error(err)
+    tracer.error(err)
   }
 }
 
