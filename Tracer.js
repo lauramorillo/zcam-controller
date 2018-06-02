@@ -1,6 +1,6 @@
 class Tracer {
   constructor() {
-    this.showLog = true // process.env.SHOW_LOG
+    this.showLog = process.env.SHOW_LOG
   }
 
   log(message) {
