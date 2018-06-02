@@ -105,9 +105,9 @@ async function loadConfig() {
 }
 
 configJob = schedule.scheduleJob('*/5 * * * *', () => {
-  loadConfig()
+  loadConfig().catch(err => trace.error(err))
 });
-loadConfig()
+loadConfig().catch(err => trace.error(err))
 
 module.exports.stop = () => {
   cancelJobs()
