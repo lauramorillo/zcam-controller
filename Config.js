@@ -41,6 +41,10 @@ class Config {
     return this._config.dailyEnabled
   }
 
+  get updateCode() {
+    return this._config.updateCode
+  }
+
   stringify() {
     return JSON.stringify(this._config)
   }

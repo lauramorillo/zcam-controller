@@ -3,10 +3,12 @@ const CamConnector = require('./CamConnector')
 const LocalConnector = require('./LocalConnector')
 const Config = require('./Config')
 const Tracer = require('./Tracer')
+const CodeUpdater = require('./CodeUpdated')
 
 const tracer = new Tracer()
 const localConnector = new LocalConnector(tracer)
 const driveConnector = new DriveConnector(tracer, localConnector)
+const codeUpdater = new CodeUpdater(tracer)
 
 const camConnector = new CamConnector(tracer)
 const schedule = require('node-schedule');
@@ -18,8 +20,14 @@ const CONFIG_RELOAD_TIME = 24*60*60*1000
 
 let job = null
 let dailyJob = null
+let codeUpdateJob = null
 
 let previousConfig = null
+
+function cancelJobs() {
+  if (job) job.cancel()
+  if (dailyJob) dailyJob.cancel()
+}
 
 function cronFromConfig(config) {
   const frequency = config.frequency
@@ -69,7 +77,7 @@ async function loadConfig() {
       });
 
       if (config.dailyEnabled) {
-        dailyJob = schedule.scheduleJob('26 0 * * 0-6', function() {
+        dailyJob = schedule.scheduleJob('26 0 * * 0-6', () => {
           console.log('Executing daily job at ', new Date())
           try {
             processDailyPhoto(config)
@@ -79,6 +87,10 @@ async function loadConfig() {
         })
       }
 
+      if (config.codeUpdateJob) {
+        codeUpdater.updateCode()
+      }
+
       previousConfig = new Config(config._config)
     }
   } catch(err) {
@@ -86,8 +98,12 @@ async function loadConfig() {
   }
 }
 
-configJob = schedule.scheduleJob('*/5 * * * *', function() {
+configJob = schedule.scheduleJob('*/5 * * * *', () => {
   console.log('Loading config')
   loadConfig()
 });
 loadConfig()
+
+module.exports.stop = () => {
+  cancelJobs()
+}
