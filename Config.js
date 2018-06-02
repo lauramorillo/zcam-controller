@@ -5,13 +5,14 @@ class Config {
     if (!process.env.CAM_ID) {
       throw new Error('CAM_ID not configured')
     }
-    this.camName = 'cam' + process.env.CAM_ID
-    const configFile = `${this.camName}-config.yaml`
+    const camName = 'cam' + process.env.CAM_ID
+    const configFile = `${camName}-config.yaml`
     const file = await driveConnector.getConfigFile(configFile)
     return new Config(yaml.parse(file).config)
   }
 
-  constructor(config) {
+  constructor(config, camName) {
+    this.camName = camName
     this._config = Object.assign({}, config)
   }
 
