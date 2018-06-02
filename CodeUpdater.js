@@ -10,3 +10,5 @@ class CodeUpdater {
     await simpeGit.pull('origin', 'master', {'--no-rebase': null})
   }
 }
+
+module.exports = CodeUpdater
