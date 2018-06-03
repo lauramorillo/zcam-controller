@@ -1,4 +1,4 @@
-const simpleGit = require('simple-git')('/home/pi/project');
+const simpleGit = require('simple-git/promise')('/home/pi/project');
 
 class CodeUpdater {
   constructor(tracer) {
