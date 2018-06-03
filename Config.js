@@ -8,7 +8,7 @@ class Config {
     const camName = 'cam' + process.env.CAM_ID
     const configFile = `${camName}-config.yaml`
     const file = await driveConnector.getConfigFile(configFile)
-    return new Config(yaml.parse(file).config)
+    return new Config(yaml.parse(file).config, camName)
   }
 
   constructor(config, camName) {
