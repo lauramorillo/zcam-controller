@@ -13,7 +13,7 @@ class CamConnector {
   async downloadFile(fileName, raw, localDir) {
     this.tracer.log(`Downloading file: ${fileName}`)
     const currentDate = moment()
-    const file = `${localDir}/${currentDate.format('YYYYMMDDhhmm')}`
+    const file = `${localDir}/${currentDate.format('YYYYMMDDHHmm')}`
     const extension = fileName.substring(fileName.length-3)
     const localFileName = `${file}.${extension}`
     await this._download(fileName, localFileName)
