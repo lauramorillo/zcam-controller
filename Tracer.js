@@ -5,12 +5,16 @@ class Tracer {
 
   log(message) {
     if (this.showLog) {
-      console.log(message)
+      console.log(this.getDate(), '-', message)
     }
   }
 
   error(error) {
-    console.log(error)
+    console.log(this.getDate(), '-', error)
+  }
+
+  getDate() {
+    return new Date().toISOString()
   }
 }
 
