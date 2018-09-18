@@ -11,7 +11,7 @@ class CamController {
     camConnector.executeCommant(path).then(result => {
       res.json(result)
     }).catch(err => {
-      res.render('error', { error: err })
+      res.json(error)
     })
   }
 }
