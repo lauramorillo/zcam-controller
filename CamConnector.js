@@ -28,6 +28,12 @@ class CamConnector {
     return localFileName
   }
 
+  executeCommant(path) {
+    this.tracer.log(`Executing command: ${path}`)
+    const url = `${CAMERA_IP}${path}`
+    return rp(url)
+  }
+
   async _download(fileName, localPath) {
     const url = `${CAMERA_IP}${fileName}`
     return new Promise((resolve, reject) => {
@@ -47,7 +53,7 @@ class CamConnector {
     return
   }
 
-  async _deleteFile(fileName) {
+  _deleteFile(fileName) {
     const url = `${CAMERA_IP}${fileName}?act=rm`
     return rp(url)
   }
