@@ -12,7 +12,7 @@ const camConnector = new CamConnector(tracer)
 
 class ImageController {
   static getImage(req, res, next) {
-    getImagePath().then(filePath => {
+    ImageController.getImagePath().then(filePath => {
       tracer.log(`Downloading: ${filePath}`)
       res.sendFile(filePath, (err) => {
         localConnector.deleteFile(filePath)
