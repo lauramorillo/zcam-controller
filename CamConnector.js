@@ -29,7 +29,7 @@ class CamConnector {
   }
 
   executeCommant(path, query) {
-    this.tracer.log(`Executing command: ${ path } with params, ${ query }`)
+    this.tracer.log(`Executing command: ${ path } with params, ${ JSON.stringify(query) }`)
     const url = `${CAMERA_IP}${path}`
     return rp(url, { json: true, qs: query })
   }
