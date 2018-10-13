@@ -14,7 +14,7 @@ class CamController {
     })
   }
 
-  static start(req,req,next) {
+  static start(req, res, next) {
     camConnector.start()
     res.json()
   }
