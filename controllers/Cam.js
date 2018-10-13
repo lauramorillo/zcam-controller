@@ -10,7 +10,7 @@ class CamController {
     camConnector.executeCommand(path, req.query).then(result => {
       res.json(result)
     }).catch(err => {
-      res.json(error)
+      res.json(err)
     })
   }
 
