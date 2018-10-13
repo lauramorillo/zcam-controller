@@ -2,8 +2,11 @@ const rp = require('request-promise');
 const request = require('request')
 const fs = require('fs')
 const moment = require('moment')
+var Gpio = require('onoff').Gpio;
 
-const CAMERA_IP = "http://192.168.168.1"
+const PIN = 4
+const CAMERA_IP = 'http://192.168.168.1'
+const LED = new Gpio(PIN, 'out');
 
 class CamConnector {
   constructor(tracer) {
@@ -68,7 +71,8 @@ class CamConnector {
   }
 
   start() {
-    // CÓDIGO PARA CONEXIÓN CON EL RELÉ
+    LED.writeSync(1);
+    setTimeout(() => { LED.writeSync(0) }, 2000);
   }
 
 }
