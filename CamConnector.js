@@ -6,7 +6,7 @@ var Gpio = require('onoff').Gpio;
 
 const PIN = 4
 const CAMERA_IP = 'http://192.168.168.1'
-const LED = new Gpio(PIN, 'out');
+const SWITCH = new Gpio(PIN, 'out');
 
 class CamConnector {
   constructor(tracer) {
@@ -71,8 +71,8 @@ class CamConnector {
   }
 
   start() {
-    LED.writeSync(1);
-    setTimeout(() => { LED.writeSync(0) }, 2000);
+    SWITCH.writeSync(1);
+    setTimeout(() => { SWITCH.writeSync(0) }, 2000);
   }
 
 }
