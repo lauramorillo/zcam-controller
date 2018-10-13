@@ -28,7 +28,7 @@ class CamConnector {
     return localFileName
   }
 
-  executeCommant(path, query) {
+  executeCommand(path, query) {
     this.tracer.log(`Executing command: ${ path } with params, ${ JSON.stringify(query) }`)
     const url = `${CAMERA_IP}${path}`
     return rp(url, { json: true, qs: query })
@@ -65,6 +65,10 @@ class CamConnector {
       throw new Error('Photo not taken')
     }
     return response.msg
+  }
+
+  start() {
+    // CÓDIGO PARA CONEXIÓN CON EL RELÉ
   }
 
 }
