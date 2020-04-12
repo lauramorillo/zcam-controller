@@ -214,7 +214,7 @@ class DriveConnector {
         throw err;
       }
     }
-    fs.writeFile(TOKEN_PATH, JSON.stringify(token));
+    fs.writeFileSync(TOKEN_PATH, JSON.stringify(token));
     this.tracer.log(`Token stored to ${TOKEN_PATH}`);
   }
 
